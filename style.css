@@ -1156,81 +1156,59 @@ body.loaded .loading-status {
 }
 .modal-footer a { color: white; font-weight: 600; text-decoration: none; }
 /* =========================================
-   14. MOBILE RESPONSIVE FIXES (BLINDAT CU !IMPORTANT)
+   14. DESIGN ADAPTIV (TELEFON SI TABLETA)
    ========================================= */
 
-html, body {
-    overflow-x: hidden !important;
-    width: 100% !important;
-}
-
+/* Această regulă se activează AUTOMAT doar pe ecrane mai mici de 768px (telefoane) */
 @media (max-width: 768px) {
     
-    /* 1. STATISTICI (Metricile din prima ta poza) */
-    .stats-container {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 20px !important;
-    }
-    .stat-box {
-        width: 100% !important;
-        max-width: 320px !important;
-        padding: 20px !important;
-    }
+    /* 1. Prevenim scroll-ul orizontal (sa nu joace site-ul stanga-dreapta) */
+    body { overflow-x: hidden; }
 
-    /* 2. TITLURI SI TEXTE (Poza 2 cu Process) */
-    .hiw-title {
-        font-size: 1.5rem !important;
-        text-align: center !important;
-        padding: 0 !important;
-    }
-    .hiw-container {
-        flex-direction: column-reverse !important;
-    }
-    .hiw-image-container {
-        max-height: 200px !important;
-    }
+    /* 2. Titlurile (Reparam textele mari care se rup urat pe ecran) */
+    h2.text-center, .hiw-title { font-size: 1.5rem; text-align: center; }
+    .text-center h1 { font-size: 1.8rem; }
+    .subtitle { font-size: 0.9rem; padding: 0 10px; }
 
-    /* 3. BENEFICII SI ETICHETA SOON (Poza 3) */
+    /* 3. Beneficii (Mentinem designul de laptop, dar micsoram continutul) */
     .benefit-item {
-        flex-direction: row !important; /* Fortam iconita si textul sa stea pe orizontala */
-        align-items: flex-start !important;
-        text-align: left !important;
-        padding: 25px 20px !important;
-        gap: 15px !important;
+        flex-direction: row; /* Le tinem pe orizontala, iconita langa text */
+        padding: 15px 15px;
+        align-items: center; /* Centram iconita cu textul */
     }
     .icon-box {
-        width: 45px !important;
-        height: 45px !important;
-        flex-shrink: 0 !important; /* Nu lasa iconita sa se striveasca */
+        width: 35px; height: 35px; /* Iconita mai mica */
+        font-size: 0.9rem;
+        flex-shrink: 0; /* Nu o lasam sa se turteasca */
     }
-    /* Reparam eticheta SOON sa stea perfect pe dunga */
+    .text-box strong { font-size: 0.95rem; }
+    .text-box p { font-size: 0.8rem; margin-top: 2px; }
+    
+    /* Reparam eticheta SOON sa nu mai iasa afara */
     .soon-badge {
-        top: -12px !important; 
-        left: 20px !important;
-        transform: none !important;
-        background: #050507 !important; /* Fundal negru ca sa taie dunga cardului */
-        border-color: var(--accent-blue) !important;
-        padding: 2px 8px !important;
-        font-size: 0.65rem !important;
+        top: -10px;
+        left: 20px;
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        background: #050507; /* O mascam cu fundalul site-ului */
     }
 
-    /* 4. SLIDER PRETURI */
-    .pricing-carousel-wrapper {
-        gap: 5px !important;
-    }
-    .pricing-card {
-        max-width: 270px !important;
-        padding: 20px !important;
-    }
-    .nav-arrow {
-        width: 40px !important;
-        height: 40px !important;
-        flex-shrink: 0 !important;
-    }
+    /* 4. Statistici (Le lasam unele sub altele, dar mai subtiri) */
+    .stats-container { flex-direction: column; gap: 12px; }
+    .stat-box { padding: 15px; width: 100%; max-width: 300px; margin: 0 auto; }
+    .stat-number { font-size: 1.8rem; }
+
+    /* 5. Process (Imaginea mai mica sa nu ocupe tot ecranul) */
+    .hiw-container { flex-direction: column-reverse; gap: 20px; }
+    .hiw-image-container img { height: 200px; object-fit: cover; }
+    .hiw-step { padding: 15px; }
+
+    /* 6. Slider Preturi (Cardurile si sagetile) */
+    .pricing-carousel-wrapper { gap: 5px; }
+    .pricing-card { max-width: 260px; padding: 15px; } /* Cardul mai ingust */
+    .plan-price { font-size: 1.4rem; }
+    .nav-arrow { width: 35px; height: 35px; font-size: 0.8rem; flex-shrink: 0; }
     
-    /* 5. HEADER */
-    .secure-badge {
-        display: none !important; /* Ascundem lacatul ca sa aiba loc meniul */
-    }
+    /* Ascundem badge-ul SSL sus doar ca sa aiba loc meniul de log in si limba */
+    .secure-badge { display: none; }
 }
