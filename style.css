@@ -1,0 +1,1157 @@
+/* =========================================
+   1. VARIABLES & PREMIUM TOKENS
+   ========================================= */
+:root {
+    --bg-body: #050507;       /* Negru profund */
+    --bg-card: #121418;       /* Gri foarte închis */
+    --bg-glass: rgba(18, 20, 24, 0.7);
+    
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
+
+    --accent-blue: #3b82f6;   /* Albastru electric */
+    --accent-glow: rgba(59, 130, 246, 0.5);
+    --accent-green: #10b981;  /* Verde succes - FOLOSIT DOAR LA SSL */
+    
+    --border-light: rgba(255, 255, 255, 0.08);
+    --shadow-premium: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+    --font-main: 'Inter', -apple-system, sans-serif;
+}
+
+/* =========================================
+   2. GLOBAL RESET & SCROLL FIX
+   ========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* FIX ESENȚIAL PENTRU NAVIGARE */
+html {
+    scroll-behavior: smooth; /* Mișcare lină la click */
+    scroll-padding-top: 100px; /* Lasă spațiu sus ca header-ul să nu acopere titlul */
+}
+
+body {
+    background-color: var(--bg-body);
+    /* Gradient de fundal subtil modificat din albastru/verde in albastru/alb */
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.05), transparent 40%);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   3. HEADER (Sticky & Glass) & NAVIGARE
+   ========================================= */
+header {
+    position: sticky; top: 0; z-index: 1000;
+    /* Fundal semi-transparent cu blur pentru efectul de sticlă */
+    background: rgba(5, 5, 7, 0.75); 
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border-light);
+    padding: 15px 0;
+    transition: background 0.3s;
+}
+
+/* =========================================
+   LOGIN BUTTON STYLES (NOU)
+   ========================================= */
+.login-btn {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.login-btn:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: white;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+}
+
+.login-btn i {
+    font-size: 0.9rem;
+}
+
+/* Ascundem textul "Log In" pe mobil, lăsăm doar omulețul ca să nu aglomerăm */
+@media (max-width: 600px) {
+    .login-btn span {
+        display: none;
+    }
+    .login-btn {
+        padding: 8px;
+        border-radius: 50%; /* Îl facem rotund pe mobil */
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+    }
+    
+    /* Pe ecrane foarte mici, putem ascunde badge-ul SSL ca să aibă loc login-ul */
+    .secure-badge {
+        display: none;
+    }
+}
+
+.container {
+    max-width: 1400px; /* Lățime mai mare pentru a încăpea meniul */
+    margin: 0 auto; padding: 0 20px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.logo { 
+    font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; 
+    letter-spacing: -0.5px;
+}
+.logo i { color: var(--accent-blue); }
+
+/* --- MENIUL DE NAVIGARE --- */
+.main-nav {
+    display: flex;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.03); /* Cutie subtilă */
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: 1px solid var(--border-light);
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+/* Link-ul de Pricing îl evidențiem */
+.nav-link.highlight-link {
+    color: var(--accent-blue);
+}
+
+/* Pe ecrane mici (tablete/mobil) ascundem meniul central */
+@media (max-width: 900px) {
+    .main-nav { display: none; }
+}
+
+.header-right { display: flex; gap: 15px; align-items: center; }
+
+.lang-selector select {
+    background: transparent; border: 1px solid var(--border-light);
+    color: var(--text-secondary); padding: 5px 10px; border-radius: 6px;
+    cursor: pointer; outline: none; font-size: 0.85rem;
+    color-scheme: dark; 
+}
+
+/* SINGURUL ELEMENT CARE A RĂMAS VERDE */
+.secure-badge {
+    font-size: 0.75rem; color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1); padding: 5px 10px; border-radius: 20px;
+    display: flex; align-items: center; gap: 5px;
+}
+
+/* =========================================
+   4. MAIN LAYOUT (Vertical Center)
+   ========================================= */
+.main-layout {
+    max-width: 680px; 
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px; /* Mai mult spațiu pentru scroll */
+}
+
+/* =========================================
+   5. INTRO SECTION (PULSE ANIMATION ADDED)
+   ========================================= */
+.intro-section { text-align: center; }
+
+.tech-title {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px;
+    color: var(--accent-blue); margin-bottom: 25px; font-weight: 700; opacity: 0.8;
+}
+
+/* Containerul principal cu efect de pulsație (Modificat din albastru/verde in albastru/alb) */
+.video-container {
+    position: relative;
+    border-radius: 20px;
+    padding: 2px; /* Spațiu pentru gradient border */
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(255, 255, 255, 0.1));
+    animation: ai-pulse 4s infinite ease-in-out;
+}
+
+.video-wrapper {
+    border-radius: 18px; 
+    overflow: hidden; 
+    position: relative;
+    aspect-ratio: 16/9; 
+    background: #000;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+.video-wrapper video { 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+    opacity: 0.95; 
+}
+
+@keyframes ai-pulse {
+    0% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+    50% { box-shadow: 0 0 50px rgba(59, 130, 246, 0.35); }
+    100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+}
+
+/* =========================================
+   6. PAYMENT SECTION
+   ========================================= */
+.payment-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Modificat din albastru/verde in albastru/alb */
+.payment-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent-blue), #ffffff);
+}
+
+.card-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 25px; border-bottom: 1px solid var(--border-light);
+    padding-bottom: 15px;
+}
+
+.plan-price { font-size: 1.5rem; font-weight: 700; color: white; }
+.plan-price small { font-size: 0.9rem; color: var(--text-secondary); font-weight: 400; }
+
+#payment-element { min-height: 200px; margin-bottom: 20px; }
+
+.terms-container {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    font-size: 0.9rem; color: var(--text-secondary);
+}
+.terms-link { color: var(--accent-blue); text-decoration: none; }
+
+/* Buton Premium */
+.btn-submit {
+    width: 100%; padding: 16px;
+    background: var(--accent-blue);
+    color: white; border: none; border-radius: 12px;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+}
+
+.btn-submit:disabled {
+    background: #1f2937; color: #4b5563; cursor: not-allowed; box-shadow: none;
+}
+
+/* =========================================
+   7. SCROLL REVEAL ANIMATIONS
+   ========================================= */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
+/* =========================================
+   8. BENEFITS (Vertical List)
+   ========================================= */
+.benefits-scroll-container {
+    display: flex; flex-direction: column; gap: 20px;
+}
+
+.text-center { text-align: center; margin-bottom: 40px; }
+.text-center h1 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+
+.highlight { 
+    background: linear-gradient(90deg, #fff, var(--text-secondary));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+
+.benefit-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 24px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.benefit-item:hover { 
+    background: rgba(255,255,255,0.04); 
+    border-color: var(--accent-blue); 
+}
+
+.icon-box {
+    width: 48px; height: 48px;
+    background: rgba(59, 130, 246, 0.1); 
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent-blue); flex-shrink: 0; font-size: 1.2rem;
+}
+
+.text-box strong { display: block; font-size: 1.1rem; margin-bottom: 5px; color: white; }
+.text-box p { font-size: 1rem; color: var(--text-secondary); line-height: 1.5; }
+
+/* =========================================
+   9. FOOTER / CERTIFICATIONS
+   ========================================= */
+.official-trust-footer {
+    border-top: 1px solid var(--border-light);
+    padding-top: 50px; margin-bottom: 80px;
+    text-align: center;
+}
+
+.trust-title {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-muted); margin-bottom: 30px;
+}
+
+.logos-row {
+    display: flex; justify-content: center; gap: 20px;
+    font-weight: 700; color: var(--text-secondary); font-size: 1.2rem;
+    margin-bottom: 40px; opacity: 0.7;
+}
+.separator { color: var(--border-light); opacity: 0.5; }
+
+.certifications-row {
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;
+}
+
+.cert-badge {
+    border: 1px solid var(--border-light);
+    padding: 10px 20px; border-radius: 50px;
+    font-size: 0.85rem; color: var(--text-secondary);
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.02);
+    transition: all 0.3s ease;
+}
+
+.cert-badge:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: var(--text-secondary);
+}
+
+.cert-badge i { color: var(--accent-blue); }
+
+@media (max-width: 600px) {
+    .main-layout { margin: 20px auto; gap: 50px; }
+    .plan-price { font-size: 1.3rem; }
+    .text-center h1 { font-size: 1.8rem; }
+    .logos-row { flex-wrap: wrap; }
+}
+
+/* =========================================
+   11. STATISTICS SECTION (Animated Numbers)
+   ========================================= */
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background: rgba(18, 20, 24, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    flex: 1;
+    max-width: 200px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-blue);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-box:nth-child(1) .stat-number::after { content: "+"; color: var(--accent-blue); }
+/* Modificat din verde in albastru pentru consecventa */
+.stat-box:nth-child(2) .stat-number::after { content: "%"; color: var(--accent-blue); }
+.stat-box:nth-child(3) .stat-number::after { content: "+"; color: var(--accent-blue); }
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .stats-container { flex-direction: column; align-items: center; }
+    .stat-box { width: 100%; max-width: 300px; }
+}
+
+/* =========================================
+   12. HOW IT WORKS SECTION (REPARAT - ASPECT RATIO FIX)
+   ========================================= */
+.how-it-works-section {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 0 20px; 
+}
+
+.hiw-container {
+    display: flex;
+    gap: 50px; 
+    align-items: center; /* Centrare verticală */
+    justify-content: center;
+    max-width: 1400px; 
+    margin: 0 auto;
+}
+
+/* --- Partea Stângă: Pașii --- */
+.hiw-steps {
+    flex: 1; /* Ocupă spațiu egal sau puțin mai mic */
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hiw-title {
+    font-size: 2rem;
+    margin-bottom: 30px; 
+    color: var(--text-primary);
+    padding-left: 10px; 
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.hiw-step {
+    margin-bottom: 15px; 
+    cursor: pointer;
+    padding: 20px 25px; 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.01); 
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- STAREA ACTIVĂ --- */
+.hiw-step.active {
+    background: rgba(255, 255, 255, 0.05); 
+    border-color: rgba(59, 130, 246, 0.3); 
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); 
+    transform: translateX(10px); 
+}
+
+.hiw-step::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: transparent; transition: background 0.3s;
+}
+.hiw-step.active::before { background: var(--accent-blue); }
+
+.step-header {
+    display: flex; align-items: center; margin-bottom: 0; transition: margin-bottom 0.3s;
+}
+.hiw-step.active .step-header { margin-bottom: 10px; }
+
+.hiw-step .step-number {
+    font-weight: 700; margin-right: 15px; font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.2); font-family: monospace;
+}
+
+.hiw-step .step-icon {
+    color: var(--text-muted); margin-right: 15px; font-size: 1.2rem;
+    opacity: 0.7; transition: all 0.3s;
+}
+
+.hiw-step h4 {
+    font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 0;
+}
+
+.hiw-step p {
+    font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);
+    margin-left: 0; padding-left: 45px; opacity: 0; max-height: 0; 
+    transition: all 0.4s ease-in-out;
+}
+
+.hiw-step.active p { opacity: 1; max-height: 300px; }
+
+.hiw-step.active .step-number { color: var(--accent-blue); }
+.hiw-step.active .step-icon {
+    color: var(--accent-blue); opacity: 1; transform: scale(1.1);
+    animation: spin-processor 4s linear infinite;
+}
+
+@keyframes spin-processor {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- Partea Dreaptă: Imaginea (REPARATĂ) --- */
+.hiw-image-container {
+    flex: 1.5; /* Imaginea e mai mare decât textul */
+    position: relative;
+    width: 100%;
+    
+    /* REPARAȚIE CRITICĂ: */
+    aspect-ratio: 16 / 9; /* Forțează proporția panoramică (1200x675) */
+    height: auto; /* Scoatem înălțimea fixă pentru a nu deforma cutia */
+    
+    border-radius: 24px; 
+    overflow: hidden;
+    background: #000; /* Fundal negru în caz că imaginea nu acoperă tot */
+    
+    /* Efect Premium de Ramă */
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    box-shadow: 
+        0 0 0 1px rgba(0,0,0, 0.8), /* Contur fin */
+        0 20px 50px -10px rgba(59, 130, 246, 0.3); /* Glow Albastru */
+        
+    animation: float-image 6s ease-in-out infinite;
+}
+
+@keyframes float-image {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+#hiw-main-image {
+    width: 100%;
+    height: 100%;
+    /* 'cover' va umple perfect cadrul 16:9 fără să taie, 
+       dacă și poza ta e 16:9 */
+    object-fit: cover; 
+    position: absolute;
+    top: 0; left: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.image-fade-out { opacity: 0.2; transform: scale(1.05) blur(5px); }
+.image-fade-in { opacity: 1; transform: scale(1) blur(0px); }
+
+/* --- Responsive --- */
+@media (max-width: 1100px) {
+    .hiw-container {
+        flex-direction: column-reverse; /* Imaginea sus */
+        gap: 40px;
+    }
+    .hiw-steps { max-width: 100%; width: 100%; }
+    .hiw-step p { max-height: 300px; opacity: 0.8; margin-top: 10px; }
+    
+    .hiw-image-container {
+        width: 100%;
+        /* Pe mobil păstrăm proporția panoramică */
+        aspect-ratio: 16/9;
+        flex: auto;
+        animation: none; /* Oprim plutirea pe mobil */
+    }
+}
+
+/* =========================================
+   13. TECH PRELOADER (NOU)
+   ========================================= */
+#preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #050507; /* Același negru ca site-ul */
+    z-index: 9999; /* Peste tot */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
+}
+
+.loader-content {
+    text-align: center;
+    position: relative;
+    /* Când activăm clasa .fall, tot conținutul cade */
+    transition: transform 1s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+/* --- CPU & DATA LINES --- */
+.cpu-network {
+    position: relative;
+    width: 100px; height: 100px;
+    margin: 0 auto 30px auto;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.cpu-center {
+    font-size: 3rem;
+    color: var(--accent-blue);
+    z-index: 2;
+    background: #050507;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    animation: cpu-pulse 2s infinite ease-in-out;
+}
+
+/* Liniile de date */
+.data-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Pachetele de date (luminițele care circulă) */
+.data-line::after {
+    content: '';
+    position: absolute;
+    background: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+
+/* Poziționarea liniilor */
+.data-line.top {
+    width: 2px; height: 60px; top: -60px; left: 50%; transform: translateX(-50%);
+}
+.data-line.top::after {
+    width: 100%; height: 20px; top: -20px; left: 0;
+    animation: flow-vertical 1.5s infinite linear;
+}
+
+.data-line.bottom {
+    width: 2px; height: 60px; bottom: -60px; left: 50%; transform: translateX(-50%);
+}
+.data-line.bottom::after {
+    width: 100%; height: 20px; top: -20px; left: 0;
+    animation: flow-vertical 1.5s infinite linear reverse;
+}
+
+.data-line.left {
+    width: 60px; height: 2px; left: -60px; top: 50%; transform: translateY(-50%);
+}
+.data-line.left::after {
+    width: 20px; height: 100%; left: -20px; top: 0;
+    animation: flow-horizontal 1.5s infinite linear 0.5s;
+}
+
+.data-line.right {
+    width: 60px; height: 2px; right: -60px; top: 50%; transform: translateY(-50%);
+}
+.data-line.right::after {
+    width: 20px; height: 100%; left: -20px; top: 0;
+    animation: flow-horizontal 1.5s infinite linear reverse 0.5s;
+}
+
+/* --- TEXTUL & LITERELE --- */
+.loader-text {
+    font-family: var(--font-main);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.loader-text .highlight { color: var(--accent-blue); }
+
+.char {
+    display: inline-block;
+    transition: transform 0.5s ease-in;
+}
+
+.loading-status {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+    animation: blink-text 1s infinite;
+}
+
+/* --- ANIMAȚII --- */
+@keyframes cpu-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); transform: scale(1); }
+    50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); transform: scale(1.05); }
+}
+
+@keyframes flow-vertical {
+    0% { top: -100%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+@keyframes flow-horizontal {
+    0% { left: -100%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+@keyframes blink-text { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* --- STAREA DE CĂDERE (EXIT) --- */
+body.loaded #preloader {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition-delay: 1s; /* Așteaptă să cadă elementele înainte să dispară fundalul */
+}
+
+/* Căderea CPU-ului */
+body.loaded .cpu-network {
+    transform: translateY(100vh) rotate(20deg);
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+/* Căderea Liniilor */
+body.loaded .data-line { opacity: 0; transition: opacity 0.2s; }
+
+/* Căderea Literelor (Efect Domino) */
+body.loaded .char {
+    transform: translateY(100vh);
+    opacity: 0;
+    /* Folosim variabila --i din HTML pentru a întârzia fiecare literă */
+    transition: all 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    transition-delay: calc(var(--i) * 0.1s); /* 0.1s, 0.2s, 0.3s... */
+}
+
+/* Căderea textului mic */
+body.loaded .loading-status {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.5s ease 0.6s;
+}
+
+/* =========================================
+   PRICING SECTION (3 PLANURI)
+   ========================================= */
+.pricing-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+    align-items: center;
+}
+
+.pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    padding: 30px;
+    width: 320px;
+    position: relative;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6);
+}
+
+/* Stiluri Specifice pentru Planuri */
+/* STANDARD */
+.pricing-card.standard {
+    border-color: rgba(255, 255, 255, 0.1); /* Modificat din verde în alb neutru */
+}
+.pricing-card.standard:hover {
+    box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.05);
+}
+.pricing-card.standard .plan-name { color: var(--text-primary); }
+
+/* GOLD -> DEVENIT ALBASTRU ELECTRIC */
+.pricing-card.gold {
+    border-color: rgba(59, 130, 246, 0.5); /* Albastru electric */
+    background: linear-gradient(145deg, rgba(59, 130, 246, 0.05), var(--bg-card));
+    transform: scale(1.05); /* Puțin mai mare implicit */
+    z-index: 2;
+}
+.pricing-card.gold:hover {
+    box-shadow: 0 25px 50px -10px rgba(59, 130, 246, 0.3);
+    border-color: var(--accent-blue);
+}
+.pricing-card.gold .plan-name { 
+    color: var(--accent-blue); 
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+/* PLATINUM -> DEVENIT ALB PREMIUM/SILVER */
+.pricing-card.platinum {
+    border-color: rgba(255, 255, 255, 0.3); /* Alb luminos */
+}
+.pricing-card.platinum:hover {
+    box-shadow: 0 20px 40px -10px rgba(255, 255, 255, 0.2);
+}
+.pricing-card.platinum .plan-name { 
+    color: white; 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Badge "Most Popular" pentru Gold (Acum e albastru cu text alb) */
+.popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-blue);
+    color: white;
+    font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Header Card */
+.card-header { text-align: center; margin-bottom: 20px; }
+.plan-name { font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.plan-price { font-size: 2rem; font-weight: 700; color: white; margin-top: 5px; }
+.plan-price small { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+
+.plan-divider { height: 1px; background: var(--border-light); margin: 0 0 20px 0; }
+
+/* Acordeon Detalii */
+.details-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+.details-toggle:hover { background: rgba(255,255,255,0.06); color: white; }
+.details-toggle i { transition: transform 0.3s; }
+.details-toggle.active i { transform: rotate(180deg); }
+
+.plan-features {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+.plan-features.open { max-height: 300px; margin-bottom: 20px; }
+
+.plan-features ul { list-style: none; padding: 0; text-align: left; }
+.plan-features li { 
+    margin-bottom: 10px; 
+    color: var(--text-secondary); 
+    font-size: 0.9rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+/* Modificat din verde in albastru */
+.plan-features li i { color: var(--accent-blue); }
+
+/* Zona de Acțiune (Checkbox + Buton) */
+.action-area { margin-top: auto; }
+
+.terms-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+.terms-box a { color: inherit; text-decoration: underline; }
+
+.btn-plan {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0.5;
+    pointer-events: none; /* Dezactivat inițial */
+}
+
+/* Butoane Active */
+.btn-plan.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+.btn-plan.active:hover { transform: translateY(-2px); }
+
+/* Culori Butoane */
+.btn-standard { background: #374151; color: white; } /* Gri închis */
+.btn-standard.active:hover { background: #4b5563; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+
+/* Butonul Gold devine Albastru */
+.btn-gold { background: var(--accent-blue); color: white; }
+.btn-gold.active:hover { background: #60a5fa; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4); }
+
+/* Butonul Platinum devine Alb */
+.btn-platinum { background: white; color: black; }
+.btn-platinum.active:hover { background: #f3f4f6; box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4); }
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .pricing-card.gold { transform: scale(1); } /* Resetăm scara pe mobil */
+    .pricing-card { width: 100%; max-width: 400px; }
+}
+
+/* =========================================
+   NOU: EFECT PREMIUM PENTRU SLIDER PLANURI
+   ========================================= */
+.pricing-carousel-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#pricing-track {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Latimea maxima pentru un singur card */
+    min-height: 520px; /* Tine sectiunea deschisa ca sa nu sara pe axa Y */
+    display: flex;
+    justify-content: center;
+}
+
+/* Ascundem cardurile by default si le punem in absolut pentru suprapunere */
+.pricing-card {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(40px) scale(0.9);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* Starea cardului vizibil (activ) */
+.pricing-card.active-card {
+    position: relative !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+    z-index: 2;
+}
+
+/* Efect pentru cardul pe care tocmai l-ai dat in urma */
+.pricing-card.passed-card {
+    transform: translateX(-40px) scale(0.9);
+}
+
+/* Design-ul sagetilor de navigare */
+.nav-arrow {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    z-index: 10;
+}
+
+.nav-arrow:hover:not(:disabled) {
+    background: #007bff; /* Albastrul folosit la butoanele EngAI */
+    border-color: #007bff;
+    transform: scale(1.1);
+}
+
+.nav-arrow:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Corectie pentru mobil - asezam sagetile putin mai strans */
+@media (max-width: 768px) {
+    .pricing-carousel-wrapper { gap: 10px; }
+    .nav-arrow { width: 40px; height: 40px; font-size: 1rem; }
+}
+/* =========================================
+   14. LOGIN MODAL (PREMIUM GLASS)
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(5, 5, 7, 0.6); /* Fundal întunecat */
+    backdrop-filter: blur(8px); /* Efect de blur pe site */
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Starea ascunsă */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Când modalul este activ */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: rgba(18, 20, 24, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 24px;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    
+    /* Animație de intrare (Scale Up) */
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-box {
+    transform: scale(1) translateY(0);
+}
+
+/* Butonul X de închidere */
+.modal-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.modal-close:hover { color: white; }
+
+/* Header Modal */
+.modal-header { text-align: center; margin-bottom: 30px; }
+.modal-header h2 { font-size: 1.8rem; margin-bottom: 5px; color: white; }
+.modal-header p { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* Inputs */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.input-group i {
+    position: absolute;
+    left: 15px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+.input-group input {
+    width: 100%;
+    padding: 14px 14px 14px 45px; /* Spațiu pentru iconiță */
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    outline: none;
+}
+.input-group input:focus {
+    border-color: var(--accent-blue);
+    background: rgba(59, 130, 246, 0.05);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Acțiuni (Remember / Forgot) */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+.forgot-pass { color: var(--accent-blue); text-decoration: none; }
+.forgot-pass:hover { text-decoration: underline; }
+
+/* Buton Login */
+.btn-login-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; justify-content: center; align-items: center; gap: 10px;
+}
+.btn-login-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Footer */
+.modal-footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.modal-footer a { color: white; font-weight: 600; text-decoration: none; }
