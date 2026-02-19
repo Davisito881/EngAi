@@ -1155,3 +1155,82 @@ body.loaded .loading-status {
     color: var(--text-secondary);
 }
 .modal-footer a { color: white; font-weight: 600; text-decoration: none; }
+/* =========================================
+   14. MOBILE RESPONSIVE FIXES (REPARAT PENTRU TELEFON)
+   ========================================= */
+
+/* 1. Blocăm scroll-ul orizontal pe tot site-ul */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+/* 2. Truc pentru ca videoclipul YouTube să acopere ecranul și pe verticală (mobil) */
+.bg-video {
+    width: 100vw;
+    height: 100vh;
+    transform: scale(1.2); /* Mărește puțin pentru a tăia marginile negre */
+}
+
+@media (max-width: 768px) {
+    /* Mărim mult video-ul pe ecranele format portret (telefoane) pentru a nu avea bare negre sus-jos */
+    .bg-video {
+        transform: scale(3.5); 
+    }
+}
+
+@media (max-width: 480px) {
+    /* 3. Ajustare Spații Generale */
+    .main-layout {
+        gap: 50px;
+    }
+    
+    /* 4. Micsorăm textele foarte mari ca să încapă pe un rând */
+    h2.text-center, .hiw-title {
+        font-size: 1.6rem !important;
+    }
+    .text-center h1 {
+        font-size: 1.8rem !important;
+    }
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    /* 5. FIX PENTRU SLIDER-UL DE PREȚURI (Cea mai mare problemă pe mobil) */
+    .pricing-carousel-wrapper {
+        gap: 5px; /* Reducem distanța dintre săgeți și card */
+    }
+    .pricing-card {
+        width: 100%;
+        max-width: 260px; /* Îngustăm cardul ca să aibă loc și săgețile pe ecran */
+        padding: 20px 15px; /* Reducem marginile interioare */
+    }
+    .nav-arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    .plan-price {
+        font-size: 1.6rem;
+    }
+
+    /* 6. Ajustare Beneficii - Punem iconița deasupra textului */
+    .benefit-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        padding: 25px 15px;
+    }
+    .soon-badge {
+        left: 50%;
+        transform: translateX(-50%);
+        top: -12px; /* Scoatem eticheta "SOON" puțin în afara cardului */
+    }
+
+    /* 7. Ajustare fereastră de Log In */
+    .modal-box {
+        width: 90%;
+        padding: 20px;
+    }
+}
