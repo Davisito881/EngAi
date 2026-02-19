@@ -1156,92 +1156,95 @@ body.loaded .loading-status {
 }
 .modal-footer a { color: white; font-weight: 600; text-decoration: none; }
 /* =========================================
-   14. MOBILE RESPONSIVE DESIGN (REPARAT SPATII SI ICONITE PENTRU TELEFON)
+   14. MOBILE RESPONSIVE FIXES (VARIANTA FINALA)
    ========================================= */
 
-/* Fix general: nicio cutie nu are voie sa treaca de latimea ecranului */
+/* Blocăm scroll-ul orizontal pe mobil */
 html, body {
     overflow-x: hidden;
     width: 100%;
 }
 
-/* Aplicam aceste reguli DOAR pentru ecrane de telefon si tableta (max 768px) */
 @media (max-width: 768px) {
     
-    /* 1. HEADER: Ajustam butoanele sus ca sa nu se incalece */
-    .header-right { gap: 10px; }
-    .lang-selector { padding: 4px 8px; }
-    .lang-selector select { font-size: 0.75rem; }
-    .secure-badge { display: none; } /* Ascundem badge-ul pe mobil ca sa incapa restul */
+    /* 1. Reparăm Titlurile (ca sa nu se mai rupa pe 2 randuri urat) */
+    .hiw-title {
+        font-size: 1.4rem;
+        text-align: center;
+        padding-left: 0;
+    }
+    .text-center h1 {
+        font-size: 1.8rem;
+    }
+    .subtitle {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
 
-    /* 2. STATISTICI (Metrics): Le punem frumos unele sub altele, nu pe un rand */
+    /* 2. Reparăm casuțele de Statistici (Poza 1) */
     .stats-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px; /* Spațiu mai mic între ele */
     }
     .stat-box {
-        width: 100%;
-        max-width: 100%;
-        padding: 20px;
+        padding: 15px; /* Le facem mai subțiri */
     }
 
-    /* 3. HOW IT WORKS: Iconite si text mai bine proportionat */
-    .hiw-title { font-size: 1.5rem; text-align: center; padding-left: 0; }
+    /* 3. Reparăm sectiunea Benefits si eticheta SOON (Poza 3) */
+    .benefit-item {
+        flex-direction: row; /* Punem iconița inapoi in stânga, arată mult mai bine */
+        text-align: left;
+        align-items: flex-start;
+        padding: 20px 15px;
+        gap: 15px;
+    }
+    .icon-box {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+        flex-shrink: 0; /* Impiedica iconita sa se turteasca */
+    }
+    .soon-badge {
+        top: -10px; /* O ridicăm ușor pe dungă */
+        left: 20px; /* O băgăm înăuntru, ca să nu mai iasă din card */
+        font-size: 0.65rem;
+        padding: 3px 8px;
+        background: #050507; /* Fundal negru ca sa taie conturul cardului frumos */
+        transform: none;
+    }
+
+    /* 4. Reparăm sectiunea Process (Poza 2) */
+    .hiw-container {
+        flex-direction: column-reverse;
+        gap: 20px;
+    }
+    .hiw-image-container {
+        max-height: 220px; /* Facem poza mai mica pe inaltime */
+        border-radius: 16px;
+    }
     .hiw-step {
-        padding: 15px; /* Reducem cutia */
+        padding: 15px;
     }
-    .hiw-step .step-number { font-size: 1rem; margin-right: 10px; }
-    .hiw-step .step-icon { font-size: 1rem; margin-right: 10px; }
-    .hiw-step h4 { font-size: 1rem; }
-    .hiw-step p { 
-        padding-left: 0; /* Pe laptop avea spatiu mare in stanga, pe telefon il scoatem */
-        margin-top: 10px; 
-        font-size: 0.85rem; 
+    .hiw-step p {
+        padding-left: 0;
+        margin-top: 10px;
+        font-size: 0.85rem;
     }
 
-    /* 4. SLIDER PRETURI: Reducem cardurile sa incapa cu sagetile */
+    /* 5. Header si Slider Preturi */
+    .header-right { gap: 10px; }
+    .secure-badge { display: none; } /* Ascundem lacatul pe mobil ca sa incapa meniul de limba */
+    
     .pricing-carousel-wrapper {
         gap: 10px;
         padding: 0 5px;
     }
     .pricing-card {
         padding: 20px;
-        max-width: 270px; /* Mai ingust pentru ecranul mic */
+        max-width: 280px;
     }
-    .plan-price { font-size: 1.6rem; }
     .nav-arrow {
-        width: 40px; height: 40px; font-size: 1rem;
-        flex-shrink: 0; /* Sageata nu are voie sa se deformeze */
-    }
-
-    /* 5. BENEFITS: Iconite mai mici si spatiu mai bun pentru text */
-    .benefit-item {
-        padding: 20px 15px;
-        gap: 15px; /* Aer intre iconita si text */
-    }
-    .icon-box {
-        width: 40px; height: 40px; /* Iconita mai mica */
-        font-size: 1rem;
-    }
-    .text-box strong { font-size: 1rem; margin-bottom: 3px; }
-    .text-box p { font-size: 0.85rem; }
-
-    /* Ajustam pozitia la eticheta SOON pt noile dimensiuni */
-    .soon-badge {
-        top: -12px; 
-        left: 20px;
-        font-size: 0.6rem;
-        padding: 2px 8px;
-    }
-
-    /* 6. FOOTER: Certificarile unele sub altele */
-    .certifications-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    .cert-badge {
-        width: 100%;
-        justify-content: center;
+        width: 40px; height: 40px;
+        flex-shrink: 0;
     }
 }
